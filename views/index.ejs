@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<Content-Type: application/json>
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="signin.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+  <div class="card border-primary mb-3" style="max-width: 18rem; margin: 110px 500px;">
+    <div class="card-header"></div>
+    <div class="card-body text-primary">
+      <form class="form-signin" action="/" method="POST">
+        <img class="mb-4" src="{{ site.baseurl }}/docs/{{ site.docs_version }}/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+        <label for="inputEmail" class="sr-only">Numero de Matricula</label>
+        <input type="id" id="inputEmail" name = "m_id" class="form-control" placeholder="Numero de matricula" required autofocus>
+        <label for="inputPassword" class="sr-only">Senha</label>
+        <input type="password" id="inputPassword" name = "pass_m" class="form-control" placeholder="Senha" required>
+        <div class="checkbox mb-3">
+          <label>
+            <input type="checkbox" value="remember-me"> Esqueci a senha
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" value = "blogin" type="submit">Entrar</button>
+        <center><p class="mt-5 mb-3 text-muted">UFVJM</p> </center>
+      </form>
+    </div>
+  </div>
+  
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <%= msg %>"
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script> 
+    var x = "<%= login_error %>";
+    if (x == "true") {$('#exampleModal').modal('show')} </script>
+
+  </head>
+</body>
+</html>
