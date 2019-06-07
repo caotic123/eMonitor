@@ -564,6 +564,7 @@
                                         let h = (parseInt(q_[0], 10)-parseInt(q[0], 10))
                                           return add_0(Math.abs((parseInt(q_[0], 10)-parseInt(q[0], 10))).toString()) + ":" + add_0(Math.abs((parseInt(q_[1], 10)-parseInt(q[1], 10))).toString())
                                         }
+                                        
                                       var moni = JSON.parse('<%-JSON.stringify(moni)%>')
                                       let j = 0
                                       let q = 0
@@ -606,8 +607,8 @@
                         </div>
                         <div class="col-md-6 col-lg-3">
                             <div class="statistic__item statistic__item--red">
-                                <h2 class="number">$1,060,386</h2>
-                                <span class="desc">total earnings</span>
+                                <h2 class="number">#</h2>
+                                <span class="desc">Alunos que foram em sua monitoria</span>
                                 <div class="icon">
                                     <i class="zmdi-email"></i>
                                 </div>
@@ -703,9 +704,25 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <script>  
-                                                let get_str_moni = (place, day, hour_m, hour_t_m, hour_m_d) => 
-                                        '<tr class="spacer"></tr> \
+                                    <script>  
+                                    let delete_mo = (x) => $.ajax({
+                                          url: '/delete_mon',
+                                          type: 'post',
+                                          dataType: 'json',
+                                          contentType: 'application/json',
+                                          success: function (data) {
+                                            if (data == "refresh") {
+                                                location.reload()
+                                            }
+                                          },
+                                         data: JSON.stringify({id_moni : x})
+                                        });
+                                 function go_edit_mon(id_mon) {
+                                     window.location.href = `/edit_mon?id=${id_mon}`
+                                 }
+
+                                let get_str_moni = (place, day, hour_m, hour_t_m, hour_m_d, id_mon) => 
+                                        `<tr class="spacer"></tr> \
                                         <tr class="tr-shadow"> \
                                             <td> \
                                                 <label class="au-checkbox"> \
@@ -713,25 +730,25 @@
                                                     <span class="au-checkmark"></span> \
                                                 </label> \
                                             </td> \
-                                            <td>' + place + '</td> \
+                                            <td>' ${place} </td> \
                                             <td> \
-                                                <span class="block-email">' + day + '</span> \
+                                                <span class="block-email"> ${day} </span> \
                                             </td>\
-                                            <td class="desc">' + hour_m + '</td> \
-                                            <td>' + hour_t_m + '</td> \
+                                            <td class="desc"> ${hour_m}</td> \
+                                            <td> ${hour_t_m}</td> \
                                             <td>\
                                                 <span class="status--process">Ok</span> \
                                             </td> \
-                                            <td>' + hour_m_d + '</td> \
+                                            <td>' ${hour_m_d} </td> \
                                             <td> \
                                                 <div class="table-data-feature"> \
                                                     <button class="item" data-toggle="tooltip" data-placement="top" title="Send"> \
                                                         <i class="zmdi zmdi-mail-send"></i> \
                                                     </button> \
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit"> \
+                                                    <button class="item" data-toggle="tooltip" data-placement="top" onclick = "go_edit_mon('${id_mon}')" title="Edit"> \
                                                         <i class="zmdi zmdi-edit"></i> \
                                                     </button> \
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete"> \
+                                                    <button class="item" data-toggle="tooltip" data-placement="top"  onclick = "delete_mo('${id_mon}')" title="Delete"> \
                                                         <i class="zmdi zmdi-delete"></i> \
                                                     </button> \
                                                     <button class="item" data-toggle="tooltip" data-placement="top" title="More"> \
@@ -739,7 +756,7 @@
                                                     </button> \
                                                 </div>  \
                                             </td> \
-                                        </tr> '
+                                        </tr>`
 
                                          for (let i = 0; i <= "<%= moni.length %>" - 1; i++) {
                                              console.log(moni[i].horario_terminio_monitoria)
@@ -747,8 +764,9 @@
                                                     moni[i].dia, 
                                                     moni[i].horario_monitoria, 
                                                     moni[i].horario_terminio_monitoria,
-                                                    hour_mon(moni[i].horario_monitoria, moni[i].horario_terminio_monitoria)
-                                                    )) 
+                                                    hour_mon(moni[i].horario_monitoria, moni[i].horario_terminio_monitoria),
+                                                    moni[i]._id
+                                                    ))
                                                 } 
                                   
                                           </script> 

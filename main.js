@@ -10,6 +10,8 @@ const MongoStore = require('connect-mongo')(session);
 mongoose.connect('mongodb://caotic:12asterisco@cluster0-shard-00-00-y4w1r.mongodb.net:27017,cluster0-shard-00-01-y4w1r.mongodb.net:27017,cluster0-shard-00-02-y4w1r.mongodb.net:27017/alunos?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority', {useNewUrlParser: true});
 var db = mongoose.connection;
 
+mongoose.set('useFindAndModify', false)
+
 var Schema = mongoose.Schema;
 var monitores = new Schema({
     matricula : Number,
@@ -18,11 +20,12 @@ var monitores = new Schema({
   })
 
 var monitoria = new Schema({
-    id_monitor : Number,
+    id_monitor : String,
     monitoria_lugar : String,
     dia : String,
     horario_monitoria : String,
-    horario_terminio_monitoria : String
+    horario_terminio_monitoria : String,
+    alunos : [Object]
   })
 
 var monitor = mongoose.model("monitor", monitores)
@@ -50,11 +53,13 @@ app.use(session({
 
 
 function insertMon(res, id_monitor, place_mon, day, hour_mon, hour_mon_ter) {
-    let monitoria_new = new monitorias({ id_monitor : id_monitor,
+    let monitoria_new = new monitorias({ 
+                                         id_monitor : id_monitor,
                                          monitoria_lugar : place_mon,
                                          dia : day,
                                          horario_monitoria : hour_mon,
-                                         horario_terminio_monitoria : hour_mon_ter
+                                         horario_terminio_monitoria : hour_mon_ter,
+                                         alunos : []
                                        });
                     
     monitoria_new.save(function (err, f) {
@@ -73,6 +78,18 @@ function has_login(db, m_id, password, cont) {
 
 function get_Mon(m_id, cont) {
     monitorias.find({ id_monitor : m_id, }, function (e, f) {cont(e, f)})
+}
+
+function get_Mon_by_Id(m_id, monitoria_id, cont) {
+    monitorias.find({ _id : monitoria_id, id_monitor : m_id}, function (e, f) {cont(e, f)})
+}
+
+async function delete_mon(m_id, count) {
+    monitorias.deleteOne({ _id : m_id }, function (err) {count()});
+}
+
+function add_student_mon(id, m_id, name, id_m_s, fx) {
+    monitorias.findOneAndUpdate({_id : m_id, id_monitor : id}, {$push: {'alunos': {"nome": name,"matricula": id_m_s}}}, {upsert: true, new: true }, function(e, f) {fx()})
 }
 
 function push_(g, f) {return R.insert(g.length+1, f, g);}
@@ -104,7 +121,7 @@ app.get('/', function(request, res){
         (f => {
           request.session.form_status = {error : false, msg : ''}
           request.session.save(() => 
-            get_Mon(request.session.user.id, 
+            get_Mon(request.session.user.info._id, 
                 (e, x) => res.render("dashboard.ejs", {login_error : false, msg : '',  user : request.session.user, form : f, moni : x})));
         }) (request.session.form_status)
         return;
@@ -138,6 +155,10 @@ app.post("/",
     );
 
 app.get("/logout", (req, res) => {
+    if (!req.session.user) {
+        res.redirect('/')
+     }
+
     req.session.destroy(() => res.redirect('/'))
 })
 
@@ -176,14 +197,51 @@ app.post("/add_mon", (req, res) => {
    let try_insert_mon = R.reduce((x, y) => {return !x.empty ? Maybe.bind(y, k => Maybe.Just(push_(x.value, k)), y.msg_error) : Maybe.Nothing(x.msg_error)}, Maybe.Just([]), certifi_forms(place_mon, hour_mon, day_mon, hour_mon_ter))
    Maybe.match_optinal(
        (x) => {
-        console.log(req.session.user)
-        insertMon(res, req.session.user._id, x[0], x[2], x[1], x[3])
+        insertMon(res, req.session.user.info._id, x[0], x[2], x[1], x[3])
        },
        (y) => showError(req, res, y),
        try_insert_mon
    )
 
 })
+
+app.post("/delete_mon", (req, res) => {
+  
+    if (!req.session.user || !req.body.id_moni) {
+        res.redirect('/')
+     }
+    
+    get_Mon_by_Id(req.session.user.info._id, req.body.id_moni, (e, f) => {
+        R.map((x) => {delete_mon(x, () => {})}, f)
+    })
+
+    res.json("refresh")
+})
+
+
+app.get("/edit_mon", (req, res) => {
+    if (!req.session.user) {
+        res.redirect('/')
+     }
+
+    get_Mon(req.session.user.info._id, (e, f) => res.render("edit_mon", {user : req.session.user, monitorias : f}))
+})
+
+app.post("/add_student", (req, res) => {
+    const {id_m, matricula, name} = req.body;
+    if (!req.session.user || !id_m || !matricula || !name) {
+        res.redirect('/')
+    }
+
+    get_Mon_by_Id(req.session.user.info._id, id_m, (e, f) => {
+        if (f.length < 1) {
+          res.redirect('/')
+        }
+    })
+
+    add_student_mon(req.session.user.info._id, id_m, name, matricula, () => res.json("refresh"))
+})
+
 
 app.listen(3000, function () {
     console.log('Example app listening on port 3000!');
