@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>SB Admin - Dashboard</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <!-- Page level plugin CSS-->
+  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+    <a class="navbar-brand mr-1" href="index.html">eMonitor - Painel Administrativo</a>
+
+    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+      <i class="fas fa-bars"></i>
+    </button>
+
+
+  </nav>
+
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="sidebar navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="/admin">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Admin</span>
+        </a>
+        <a class="nav-link" onclick="logout_admin()" >
+          <i class="fas fa-fw fa-backward"></i>
+          <span>Logout</span>
+        </a>
+        <a class="nav-link" href="/">
+            <i class="fas fa-fw fa-user-graduate"></i>
+            <span>eMonitor</span>
+          </a>
+                
+    </ul>
+
+    <div id="content-wrapper">
+
+      <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Overview</li>
+        </ol>
+ 
+       <!-- DataTables Example -->
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-table"></i>
+            Monitores</div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>Matricula</th>
+                    <th>Nome</th>
+                    <th>Unidade Curricular</th>
+                    <th>Unidade Academica</th>
+                    <th>Supervisor</th>
+                    <th>ID</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>Matricula</th>
+                    <th>Nome</th>
+                    <th>Unidade Curricular</th>
+                    <th>Unidade Academica</th>
+                    <th>Supervisor</th>
+                    <th>ID</th>
+                  </tr>
+                </tfoot>
+                <tbody id = "moni_data">
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+
+        <div class="col-lg-15">
+            <div class="card">
+                <div class="card-header">
+                    <strong>Adicionar novo monitor</strong>
+                    <small> Atenção ao inserir os dados </small>
+                </div>
+                <div class="card-body card-block">
+                    <div class="form-group">
+                        <label for="company" class=" form-control-label">Matricula</label>
+                        <input type="number" id="matricula" placeholder="" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="vat" class=" form-control-label">Nome</label>
+                        <input type="text" id="nome" placeholder="" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="street" class=" form-control-label">Unidade Curricular</label>
+                        <input type="text" id="unidade_curricular" placeholder="" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="street" class=" form-control-label">Unidade Academica</label>
+                        <input type="text" id="unidade_academica" placeholder="" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="street" class=" form-control-label">Supervisor</label>
+                        <input type="text" id="supervisor" placeholder="" class="form-control">
+                    </div> 
+                    <div class="form-group">
+                        <label for="street" class=" form-control-label">Senha</label>
+                        <input type="password" id="senha" placeholder="" class="form-control">
+                    </div>                  
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm" onclick = "postMonitor()">
+                <i class="fa fa-dot-circle-o"></i> Submit
+            </button>
+        </div>
+
+      </div>
+      <!-- /.container-fluid -->
+
+      <!-- Sticky Footer -->
+      <footer class="sticky-footer">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright © Your Website 2019</span>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+    <!-- /.content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal_login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id = "msg">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+
+  <script src="vendor/datatables/jquery.dataTables.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin.min.js"></script>
+
+  <!-- Demo scripts for this page-->
+  <script src="js/demo/datatables-demo.js"></script>
+
+  <script>
+    let m = JSON.parse('<%-JSON.stringify(monitores)%>')
+    
+    let logout_admin = () => $.ajax({url: '/logout_admin', type: 'post', dataType: 'json',contentType: 'application/json', success: data => location.reload(),});
+
+    let postMonitor = () =>  $.ajax({
+     url: '/add_user',
+     type: 'post',
+     dataType: 'json',
+     contentType: 'application/json',
+     success: function (data) {
+     if (data.sucess) {
+        location.reload()
+      } else {
+        $('#modal_login').modal("show")
+        $("#msg").empty()
+        $("#msg").append(data.msg)
+      }
+
+     },
+     data: JSON.stringify({m_ : $('#matricula').val(),
+                          name : $('#nome').val(),
+                          ua :  $('#unidade_academica').val(),
+                          uc :  $('#unidade_curricular').val(),
+                          sup : $('#supervisor').val(),
+                          pass :  $('#senha').val(),
+                        })
+    });
+
+
+    for (let i=0; i <= m.length - 1; i++) {
+      $("#moni_data").append(`
+                    <tr>
+                    <td>${m[i].matricula}</td> 
+                    <td>${m[i].nome}</td>
+                    <td>${m[i].unidade_curricular}</td>
+                    <td>${m[i].unidade_academica}</td>
+                    <td>${m[i].supervisor}</td>
+                    <td>${m[i]._id}</td>
+                  </tr>
+      `)
+    }
+
+  </script>
+</body>
+
+</html>

@@ -10,13 +10,20 @@ const MongoStore = require('connect-mongo')(session);
 mongoose.connect('mongodb://caotic:12asterisco@cluster0-shard-00-00-y4w1r.mongodb.net:27017,cluster0-shard-00-01-y4w1r.mongodb.net:27017,cluster0-shard-00-02-y4w1r.mongodb.net:27017/alunos?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority', {useNewUrlParser: true});
 var db = mongoose.connection;
 
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+const passord_hashing = 'eu vc e nos odiamos a papelada das monitorias';
+
 mongoose.set('useFindAndModify', false)
 
 var Schema = mongoose.Schema;
 var monitores = new Schema({
     matricula : Number,
     nome : String,
-    senha : String
+    senha : String,
+    unidade_curricular : String,
+    supervisor : String,
+    unidade_academica : String
   })
 
 var monitoria = new Schema({
@@ -28,9 +35,17 @@ var monitoria = new Schema({
     alunos : [Object]
   })
 
+
+var super_user = new Schema({
+    usuario : String,
+    senha : String
+  })
+
 var monitor = mongoose.model("monitor", monitores)
 
 var monitorias = mongoose.model("monitorias", monitoria)
+
+var admin_accounts = mongoose.model("super_user", super_user)
 
 var app = express();
 app.use(express.json());
@@ -71,13 +86,81 @@ function insertMon(res, id_monitor, place_mon, day, hour_mon, hour_mon_ter) {
   //  collec_m.insert({'id_monitor': '23'})
 }
 
-function has_login(db, m_id, password, cont) {
-    monitor.find({ matricula: m_id, senha : password }, function (e, f) {console.log(f); return cont(e, f)})
+function insertMonitor(m, n, ua, uc, sup, password, f_) {
+    bcrypt.hash(password, saltRounds, function(err, hash) {
+    let monitor_new = new monitor({ 
+                                         matricula : m,
+                                         nome : n,
+                                         unidade_academica : ua,
+                                         unidade_curricular : uc,
+                                         supervisor : sup,
+                                         senha : hash
+                                       });
+    console.log(m,n, ua, uc, sup)
+    monitor_new.save(function (err, f) {
+        if (err) return console.error(err);
+         f_()
+      });
+    })
+
+   // let collec_m = db.collection('monitorias');
+  //  collec_m.insert({'id_monitor': '23'})
+}
+
+function insertSuperUser(user, password, f_) {
+
+    bcrypt.hash(password, saltRounds, function(err, hash) {
+
+    let admin_new = new admin_accounts({ 
+                                         usuario : user,
+                                         senha : hash});
+
+    admin_new.save(function (err, f) {
+        if (err) return console.error(err);
+         f_()
+      });
+   })
+
+   // let collec_m = db.collection('monitorias');
+  //  collec_m.insert({'id_monitor': '23'})
+}
+
+function has_login(m_id, password, cont) {
+    monitor.find({ matricula: m_id}, async (e, f) => {
+    let n = []
+    for (let i=0; i <= f.length - 1; i++) {
+        if (await bcrypt.compare(password, f[i].senha)) {
+            n.push(f[i])
+        }
+    }
+
+    return cont(e, n)})
+    return;
+}
+
+function has_super_login(user, password, cont) {
+    admin_accounts.find({ usuario: user}, async (e, f) => {
+        let n = []
+        for (let i=0; i <= f.length - 1; i++) {
+            if (await bcrypt.compare(password, f[i].senha)) {
+                n.push(f[i])
+            }
+        }
+ 
+    return cont(e, n)})
+}
+
+function exist_login(m_id, cont) {
+    monitor.find({ matricula: m_id }, function (e, f) {console.log(f); return cont(e, f)})
     return;
 }
 
 function get_Mon(m_id, cont) {
     monitorias.find({ id_monitor : m_id, }, function (e, f) {cont(e, f)})
+}
+
+function get_allMon(cont) {
+    monitor.find({}, function (e, f) {cont(e, f)})
 }
 
 function get_Mon_by_Id(m_id, monitoria_id, cont) {
@@ -136,7 +219,7 @@ app.post("/",
       const { m_id, pass_m } = req.body;
 
       let len = n => n.toString().length
-      has_login(db, m_id, pass_m, (e, f) => {
+      has_login(m_id, pass_m, (e, f) => {
         let cert_ID_M = n => p => [len(n) != 11 ? {ok : false, msg : "Matricula deve conter 11 caracteres"} : {ok : true},
                                    len(p) < 6 ? {ok : false, msg: "Senhas contem no minimo 6 caracters"} : {ok : true},
                                    f.length < 1 ? {ok : false, msg: "Usuario ou senha incorretos"} : {ok : true}
@@ -241,6 +324,70 @@ app.post("/add_student", (req, res) => {
 
     add_student_mon(req.session.user.info._id, id_m, name, matricula, () => res.json("refresh"))
 })
+
+app.get("/mpdf", (req, res) => {
+    if (!req.session.user) {
+        res.redirect('/')
+     }
+     
+     get_Mon(req.session.user.info._id, (e, f) => res.render("pdf", {user : req.session.user, monitorias : f}))
+})
+
+app.get("/admin", (req, res) => {
+    if (!req.session.admin) {
+        res.render("login_admin")
+        return;
+    }
+
+    get_allMon((_, m) => res.render("panel", {monitores : m}))
+ })
+
+ app.post("/add_user", (req, res) => {
+    const {m_, name, ua, uc, sup, pass} = req.body
+    console.log(req.body)
+    if (!req.session.admin || !m_ || !name || !ua || !uc || !sup) {
+        return;
+    }
+
+    if (parseInt(m_, 10) == NaN || m_.toString().length < 11) {
+        res.json({sucess : false, msg : "Matricula incorreta"})
+        return;
+    }
+    
+    if (pass.toString().length < 6) {
+        res.json({sucess : false, msg : "Senha deve conter no minimo 6 caracteres"})
+        return;
+    }
+
+   exist_login(m_, (e, f) => {
+       if (f.length > 0) {
+         res.json({sucess : false, msg : "Monitor já cadastrado"})
+         return;
+       }
+
+       insertMonitor(m_, name, ua, uc, sup, pass, () => 
+         res.json({sucess : true, msg : ""})
+       )
+     })
+
+ })
+
+app.post("/admin_login", (req, res) => {
+    const {user, pass} = req.body
+    let negation = () => res.json({allowed : false, msg : "Permissão de login negada!"})
+    console.log(req.body)
+    if (!user || !pass) { // replace this after
+        negation()
+        return;
+    }
+     
+    has_super_login(user, pass, (e, f) => {
+      if (f.length < 1) {negation(); return;}
+      req.session.admin = true
+      req.session.save(() => res.json({allowed : true, msg : ''}))})
+})
+
+app.post("/logout_admin", (req, res) => {req.session.admin = false; req.session.save(() => res.json({sucess : true}))})
 
 
 app.listen(3000, function () {
