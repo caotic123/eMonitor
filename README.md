@@ -14,6 +14,6 @@ Libs :
 ```
 Server-side : Express.js, Mongodb, bcrypt and etc...
 Client-side : Ajax, PDFlib and etc...
-Templates : CoolAdmin and SB Admin 2
+Templates : CoolAdmin and SB Admin
 
 ```
