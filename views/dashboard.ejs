@@ -1,40 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <Content-Type: application/json>
-    <!-- Required meta tags-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="au theme template">
-    <meta name="author" content="Hau Nguyen">
-    <meta name="keywords" content="au theme template">
+    <Content-Type: application/json> <!-- Required meta tags-->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="au theme template">
+        <meta name="author" content="Hau Nguyen">
+        <meta name="keywords" content="au theme template">
 
-    <!-- Title Page-->
-    <title>eMonitor - Principal</title>
+        <!-- Title Page-->
+        <title>eMonitor - Principal</title>
 
-    <!-- Fontfaces CSS-->
-    <link href="css/font-face.css" rel="stylesheet" media="all">
-    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-    <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+        <!-- Fontfaces CSS-->
+        <link href="css/font-face.css" rel="stylesheet" media="all">
+        <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+        <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+        <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
 
-    <!-- Bootstrap CSS-->
-    <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+        <!-- Bootstrap CSS-->
+        <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
 
-    <!-- Vendor CSS-->
-    <link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
-    <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
-    <link href="vendor/wow/animate.css" rel="stylesheet" media="all">
-    <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
-    <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
-    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+        <!-- Vendor CSS-->
+        <link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+        <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+        <link href="vendor/wow/animate.css" rel="stylesheet" media="all">
+        <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+        <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
+        <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+        <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
 
-    <!-- Main CSS-->
-    <link href="css/theme.css" rel="stylesheet" media="all">
+        <!-- Main CSS-->
+        <link href="css/theme.css" rel="stylesheet" media="all">
 
 </head>
 <script src="vendor/jquery-3.2.1.min.js"></script>
+
 <body class="animsition">
     <div class="page-wrapper">
         <!-- HEADER DESKTOP-->
@@ -52,48 +53,48 @@
                     </div>
                     <div class="header__tool">
                         <div class="header-button-item js-item-menu">
-                        <div class="account-wrap">
-                            <div class="account-item account-item--style2 clearfix js-item-menu">
-                                <div class="image">
-                                    <img src="images/icon/avatar-01.jpg" alt=<%= user.info.nome %> />
-                                </div>
-                                <div class="content">
-                                    <a class="js-acc-btn" href="#"><%= user.info.nome %></a>
-                                </div>
-                                <div class="account-dropdown js-dropdown">
-                                    <div class="info clearfix">
-                                        <div class="image">
-                                            <a href="#">
-                                                <img src="images/icon/avatar-01.jpg" alt=<%= user.info.nome %> />
-                                            </a>
-                                        </div>
-                                        <div class="content">
-                                            <h5 class="name">
-                                                <a href="#"><%= user.info.nome %></a>
-                                            </h5>
-                                            <span class="email"><%= user.info.matricula %></span>
-                                        </div>
+                            <div class="account-wrap">
+                                <div class="account-item account-item--style2 clearfix js-item-menu">
+                                    <div class="image">
+                                        <img src="images/icon/avatar-01.jpg" alt=<%= user.info.nome %> />
                                     </div>
-                                    <div class="account-dropdown__body">
-                                        <div class="account-dropdown__item">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-account"></i>Account</a>
-                                        </div>
-                                        <div class="account-dropdown__item">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-settings"></i>Setting</a>
-                                        </div>
+                                    <div class="content">
+                                        <a class="js-acc-btn" href="#"><%= user.info.nome %></a>
                                     </div>
-                                    <div class="account-dropdown__footer">
-                                        <a href="/logout">
-                                            <i class="zmdi zmdi-power"></i>Sair</a>
+                                    <div class="account-dropdown js-dropdown">
+                                        <div class="info clearfix">
+                                            <div class="image">
+                                                <a href="#">
+                                                    <img src="images/icon/avatar-01.jpg" alt=<%= user.info.nome %> />
+                                                </a>
+                                            </div>
+                                            <div class="content">
+                                                <h5 class="name">
+                                                    <a href="#"><%= user.info.nome %></a>
+                                                </h5>
+                                                <span class="email"><%= user.info.matricula %></span>
+                                            </div>
+                                        </div>
+                                        <div class="account-dropdown__body">
+                                            <div class="account-dropdown__item">
+                                                <a href="#">
+                                                    <i class="zmdi zmdi-account"></i>Account</a>
+                                            </div>
+                                            <div class="account-dropdown__item">
+                                                <a href="#">
+                                                    <i class="zmdi zmdi-settings"></i>Setting</a>
+                                            </div>
+                                        </div>
+                                        <div class="account-dropdown__footer">
+                                            <a href="/logout">
+                                                <i class="zmdi zmdi-power"></i>Sair</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </header>
         <!-- END HEADER DESKTOP-->
 
@@ -390,32 +391,31 @@
                     <div class="row">
                         <div class="col-md-6 col-lg-3 ">
                             <div class="statistic__item statistic__item--green">
-                                <h2 class="number" id = "hours_m">
+                                <h2 class="number" id="hours_m">
                                     <script>
-                                      function hour_mon(x, y) {
-                                        let q = x.split(":")
-                                        let q_ = y.split(":")
-                                        let rest = (x) => x-Math.trunc(x)
-                                        let add_0 = (x) => x.length <= 1 ? "0" + x : x
-                                        let h = (parseInt(q_[0], 10)-parseInt(q[0], 10))
-                                          return add_0(Math.abs((parseInt(q_[0], 10)-parseInt(q[0], 10))).toString()) + ":" + add_0(Math.abs((parseInt(q_[1], 10)-parseInt(q[1], 10))).toString())
+                                        function hour_mon(x, y) {
+                                            let q = x.split(":")
+                                            let q_ = y.split(":")
+                                            let rest = (x) => x - Math.trunc(x)
+                                            let add_0 = (x) => x.length <= 1 ? "0" + x : x
+                                            let h = (parseInt(q_[0], 10) - parseInt(q[0], 10))
+                                            return add_0(Math.abs((parseInt(q_[0], 10) - parseInt(q[0], 10))).toString()) + ":" + add_0(Math.abs((parseInt(q_[1], 10) - parseInt(q[1], 10))).toString())
                                         }
-                                        
-                                      var moni = JSON.parse('<%-JSON.stringify(moni)%>')
-                                      let j = 0
-                                      let q = 0
-                                      let t;
-                                      for (let i=0; i<= moni.length - 1; i++) {
-                                          t = hour_mon(moni[i].horario_monitoria, moni[i].horario_terminio_monitoria)
-                                          j = j + parseInt(t.split(":")[0], 10)
-                                          q = q +  parseInt(t.split(":")[1], 10)
-                                      }
 
-                                      let k = Math.trunc(j + (q/60))
-                                      $("#hours_m").append(k)
-   
+                                        var moni = JSON.parse('<%-JSON.stringify(moni)%>')
+                                        let j = 0
+                                        let q = 0
+                                        let t;
+                                        for (let i = 0; i <= moni.length - 1; i++) {
+                                            t = hour_mon(moni[i].horario_monitoria, moni[i].horario_terminio_monitoria)
+                                            j = j + parseInt(t.split(":")[0], 10)
+                                            q = q + parseInt(t.split(":")[1], 10)
+                                        }
+
+                                        let k = Math.trunc(j + (q / 60))
+                                        $("#hours_m").append(k)
                                     </script>
-                                    
+
                                 </h2>
                                 <span class="desc">Horas atuais dadas de monitoria</span>
                                 <div class="icon">
@@ -425,7 +425,11 @@
                         </div>
                         <div class="col-md-6 col-lg-3">
                             <div class="statistic__item statistic__item--orange">
-                                <h2 class="number" id = "hours_q"><script>$("#hours_q").append(moni.length)</script></h2>
+                                <h2 class="number" id="hours_q">
+                                    <script>
+                                        $("#hours_q").append(moni.length)
+                                    </script>
+                                </h2>
                                 <span class="desc">Monitorias feitas</span>
                                 <div class="icon">
                                     <i class="zmdi zmdi-collection-text"></i>
@@ -434,7 +438,11 @@
                         </div>
                         <div class="col-md-6 col-lg-3">
                             <div class="statistic__item statistic__item--blue">
-                                <h2 class="number" id = "hours_f"><script>$("#hours_f").append(144-k <= 0 ? 0 : 144-k)</script></h2>
+                                <h2 class="number" id="hours_f">
+                                    <script>
+                                        $("#hours_f").append(144 - k <= 0 ? 0 : 144 - k)
+                                    </script>
+                                </h2>
                                 <span class="desc">Para você completar as horas totais</span>
                                 <div class="icon">
                                     <i class="zmdi zmdi-assignment-o"></i>
@@ -443,15 +451,14 @@
                         </div>
                         <div class="col-md-6 col-lg-3">
                             <div class="statistic__item statistic__item--red">
-                                <h2 class="number" id = "st_at">
+                                <h2 class="number" id="st_at">
                                     <script>
-                                    let m = JSON.parse('<%-JSON.stringify(moni)%>')
-                                    let q_ = 0
-                                    for (let i =0; i <= m.length - 1; i++) {
-                                          for (q_=0; q_ <= m[i].alunos.length - 1; q_++) {}
-                                    }
-                                    $("#st_at").append(q_)
-         
+                                        let m = JSON.parse('<%-JSON.stringify(moni)%>')
+                                        let q_ = 0
+                                        for (let i = 0; i <= m.length - 1; i++) {
+                                            for (q_ = 0; q_ <= m[i].alunos.length - 1; q_++) {}
+                                        }
+                                        $("#st_at").append(q_)
                                     </script>
 
                                 </h2>
@@ -468,73 +475,76 @@
 
             <form class="form-inline" action="/add_mon" method="POST">
                 <div class="form-mon">
-                  <label for="pwd">Local da monitoria</label>
-                  <input type="text" name="place_mon" class="form-control" id="place">
+                    <label for="pwd">Local da monitoria</label>
+                    <input type="text" name="place_mon" class="form-control" id="place">
                 </div>
                 <div class="form-mon">
-                  <label for="pwd">Hora da monitoria</label>
-                  <input type="time" name="hour_mon" class="form-control" id="hour">
+                    <label for="pwd">Hora da monitoria</label>
+                    <input type="time" name="hour_mon" class="form-control" id="hour">
                 </div>
                 <div class="form-mon">
-                  <label for="pwd">Dia da Monitoria</label>
-                  <input type="date" name="day_mon" class="form-control" id="date">
+                    <label for="pwd">Dia da Monitoria</label>
+                    <input type="date" name="day_mon" class="form-control" id="date">
                 </div>
                 <div class="form-mon">
-                  <label for="pwd">Hora de terminio</label>
-                  <input type="time" name="hour_mon_ter" class="form-control" id="hour_ter">
+                    <label for="pwd">Hora de terminio</label>
+                    <input type="time" name="hour_mon_ter" class="form-control" id="hour_ter">
                 </div>
 
                 <div class="form-bottom">
-                <button class="au-btn au-btn-icon au-btn--green au-btn--small">
+                    <button class="au-btn au-btn-icon au-btn--green au-btn--small">
                         <i class="zmdi zmdi-plus"></i>Adicionar Monitoria</button>
                 </div>
 
-              </form>
+            </form>
 
-                            <div class="table-responsive table-responsive-data2">
-                                <table class="table table-data2" id = "ata">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                <label class="au-checkbox">
-                                                    <input type="checkbox">
-                                                    <span class="au-checkmark"></span>
-                                                </label>
-                                            </th>
-                                            <th>Local</th>
-                                            <th>Dia</th>
-                                            <th>Horario de começo</th>
-                                            <th>Horario de terminio</th>
-                                            <th>status</th>
-                                            <th>Horas dadas</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <script>  
-                                    let delete_mo = (x) => $.ajax({
-                                          url: '/delete_mon',
-                                          type: 'post',
-                                          dataType: 'json',
-                                          contentType: 'application/json',
-                                          success: function (data) {
-                                            if (data == "refresh") {
-                                                location.reload()
-                                            }
-                                          },
-                                         data: JSON.stringify({id_moni : x})
-                                        });
-                                 function go_edit_mon(id_mon) {
-                                     window.location.href = `/edit_mon?id=${id_mon}`
-                                 }
-                                 
-                                 function go_generate_doc(id_mon) {
-                                     window.location.href = `/mpdf?id=${id_mon}`
-                                 }
-                                 
+            <div class="table-responsive table-responsive-data2">
+                <table class="table table-data2" id="form_">
+                    <thead>
+                        <tr>
+                            <th>
+                                <label class="au-checkbox">
+                                    <input type="checkbox">
+                                    <span class="au-checkmark"></span>
+                                </label>
+                            </th>
+                            <th>Local</th>
+                            <th>Dia</th>
+                            <th>Horario de começo</th>
+                            <th>Horario de terminio</th>
+                            <th>status</th>
+                            <th>Horas dadas</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <script>
+                            let delete_mo = (x) => $.ajax({
+                                url: '/delete_mon',
+                                type: 'post',
+                                dataType: 'json',
+                                contentType: 'application/json',
+                                success: function(data) {
+                                    if (data == "refresh") {
+                                        location.reload()
+                                    }
+                                },
+                                data: JSON.stringify({
+                                    id_moni: x
+                                })
+                            });
 
-                                let get_str_moni = (place, day, hour_m, hour_t_m, hour_m_d, id_mon) => 
-                                        `<tr class="spacer"></tr> \
+                            function go_edit_mon(id_mon) {
+                                window.location.href = `/edit_mon?id=${id_mon}`
+                            }
+
+                            function go_generate_doc(id_mon) {
+                                window.location.href = `/mpdf?id=${id_mon}`
+                            }
+
+
+                            let get_str_moni = (place, day, hour_m, hour_t_m, hour_m_d, id_mon) =>
+                                `<tr class="spacer"></tr> \
                                         <tr class="tr-shadow"> \
                                             <td> \
                                                 <label class="au-checkbox"> \
@@ -570,42 +580,41 @@
                                             </td> \
                                         </tr>`
 
-                                         for (let i = 0; i <= "<%= moni.length %>" - 1; i++) {
-                                             console.log(moni[i].horario_terminio_monitoria)
-                                                  $("#ata").append(get_str_moni(moni[i].monitoria_lugar, 
-                                                    moni[i].dia, 
-                                                    moni[i].horario_monitoria, 
-                                                    moni[i].horario_terminio_monitoria,
-                                                    hour_mon(moni[i].horario_monitoria, moni[i].horario_terminio_monitoria),
-                                                    moni[i]._id
-                                                    ))
-                                                } 
-                                  
-                                          </script> 
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- END DATA TABLE-->
+                            for (let i = 0; i <= "<%= moni.length %>" - 1; i++) {
+                                console.log(moni[i].horario_terminio_monitoria)
+                                $("#form_").append(get_str_moni(moni[i].monitoria_lugar,
+                                    moni[i].dia,
+                                    moni[i].horario_monitoria,
+                                    moni[i].horario_terminio_monitoria,
+                                    hour_mon(moni[i].horario_monitoria, moni[i].horario_terminio_monitoria),
+                                    moni[i]._id
+                                ))
+                            }
+                        </script>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+    </section>
+    <!-- END DATA TABLE-->
 
-            <!-- COPYRIGHT-->
-            <section class="p-t-60 p-b-20">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="copyright">
-                                <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
-                            </div>
-                        </div>
+    <!-- COPYRIGHT-->
+    <section class="p-t-60 p-b-20">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="copyright">
+                        <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
                     </div>
                 </div>
-            </section>
-            <!-- END COPYRIGHT-->
-        </div>    
-            <!-- Jquery JS-->
+            </div>
+        </div>
+    </section>
+    <!-- END COPYRIGHT-->
+    </div>
+    <!-- Jquery JS-->
 
     </div>
 
@@ -631,30 +640,32 @@
     <script src="js/main.js"></script>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <%= form.msg %>"
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
-              </div>
             </div>
+        </div>
 
     </div>
-    
-    <script> 
-            var x = "<%= form.error %>";
-            if (x == "true") {$('#exampleModal').modal('show')} 
-    </script>          
+
+    <script>
+        var x = "<%= form.error %>";
+        if (x == "true") {
+            $('#exampleModal').modal('show')
+        }
+    </script>
 
 </body>
 

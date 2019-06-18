@@ -195,180 +195,186 @@
                                 <div class="noti-wrap">
                                     <div class="noti__item js-item-menu">
 
-                                <div class="account-wrap">
-                                    <div class="account-item clearfix js-item-menu">
-                                        <div class="image">
-                                            <img src="images/icon/avatar-01.jpg" alt="John Doe" />
-                                        </div>
-                                        <div class="content">
-                                            <a class="js-acc-btn" href="#"><%= user.info.nome %></a>
-                                        </div>
-                                        <div class="account-dropdown js-dropdown">
-                                            <div class="info clearfix">
+                                        <div class="account-wrap">
+                                            <div class="account-item clearfix js-item-menu">
                                                 <div class="image">
-                                                    <a href="#">
-                                                        <img src="images/icon/avatar-01.jpg" alt="John Doe" />
-                                                    </a>
+                                                    <img src="images/icon/avatar-01.jpg" alt="John Doe" />
                                                 </div>
                                                 <div class="content">
-                                                    <h5 class="name">
-                                                        <a href="#"><%= user.info.nome %></a>
-                                                    </h5>
-                                                    <span class="email"><%= user.info.matricula %></span>
+                                                    <a class="js-acc-btn" href="#"><%= user.info.nome %></a>
                                                 </div>
-                                            </div>
-                                            <div class="account-dropdown__body">
-                                                <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-account"></i>Account</a>
+                                                <div class="account-dropdown js-dropdown">
+                                                    <div class="info clearfix">
+                                                        <div class="image">
+                                                            <a href="#">
+                                                                <img src="images/icon/avatar-01.jpg" alt="John Doe" />
+                                                            </a>
+                                                        </div>
+                                                        <div class="content">
+                                                            <h5 class="name">
+                                                                <a href="#"><%= user.info.nome %></a>
+                                                            </h5>
+                                                            <span class="email"><%= user.info.matricula %></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="account-dropdown__body">
+                                                        <div class="account-dropdown__item">
+                                                            <a href="#">
+                                                                <i class="zmdi zmdi-account"></i>Account</a>
+                                                        </div>
+                                                        <div class="account-dropdown__item">
+                                                            <a href="#">
+                                                                <i class="zmdi zmdi-settings"></i>Setting</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="account-dropdown__footer">
+                                                        <a href="#">
+                                                            <i class="zmdi zmdi-power"></i>Logout</a>
+                                                    </div>
                                                 </div>
-                                                <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-settings"></i>Setting</a>
-                                                </div>
-                                            </div>
-                                            <div class="account-dropdown__footer">
-                                                <a href="#">
-                                                    <i class="zmdi zmdi-power"></i>Logout</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
             </header>
             <!-- HEADER DESKTOP-->
-            
+
             <!-- MAIN CONTENT-->
             <div class="main-content">
 
-                    <div class="section__content section__content--p30">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-lg-9">
-                                    <div class="table-responsive table--no-card m-b-30">
-                                        <table class="table table-borderless table-striped table-earning">
-                                            <thead>
-                                                <tr>
-                                                    <th>Matricula</th>
-                                                    <th>Nome</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id = "students">
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                            <div class="col-lg-20">
-                                <div class="card">
-                                    <div class="card-header">Inserir aluno</div>
-                                    <div class="card-body card-block">
-                                        <form class="">
-                                            <div class="form-group">
-                                                <div class="input-group">
-                                                    <div class="input-group-addon">Matricula</div>
-                                                    <input type="text" id="matricula" name="matricula" class="form-control">
-                                                    <div class="input-group-addon">
-                                                        <i class="fa fa-user"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="input-group">
-                                                    <div class="input-group-addon">Nome</div>
-                                                    <input type="text" id="nome" name="nome" class="form-control">
-                                                    <div class="input-group-addon">
-                                                        <i class="fa fa-envelope"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-actions form-group">
-                                    <button type="submit" class="btn btn-primary btn-sm" onclick = "sendAddStudent()">Inserir</button>
-                                </div>
-                    
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="copyright">
-                                    <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                            <div class="col-lg-9">
+                                <div class="table-responsive table--no-card m-b-30">
+                                    <table class="table table-borderless table-striped table-earning">
+                                        <thead>
+                                            <tr>
+                                                <th>Matricula</th>
+                                                <th>Nome</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="students">
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="col-lg-20">
+                                    <div class="card">
+                                        <div class="card-header">Inserir aluno</div>
+                                        <div class="card-body card-block">
+                                            <form class="">
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">Matricula</div>
+                                                        <input type="text" id="matricula" name="matricula" class="form-control">
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-user"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">Nome</div>
+                                                        <input type="text" id="nome" name="nome" class="form-control">
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-envelope"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-actions form-group">
+                                    <button type="submit" class="btn btn-primary btn-sm" onclick="sendAddStudent()">Inserir</button>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="copyright">
+                                            <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
-        </div>
-
-    </div>
 
 
-    <!-- Bootstrap JS-->
-    <script src="vendor/bootstrap-4.1/popper.min.js"></script>
-    <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
-    <!-- Vendor JS       -->
-    <script src="vendor/slick/slick.min.js">
-    </script>
-    <script src="vendor/wow/wow.min.js"></script>
-    <script src="vendor/animsition/animsition.min.js"></script>
-    <script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
-    </script>
-    <script src="vendor/counter-up/jquery.waypoints.min.js"></script>
-    <script src="vendor/counter-up/jquery.counterup.min.js">
-    </script>
-    <script src="vendor/circle-progress/circle-progress.min.js"></script>
-    <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="vendor/select2/select2.min.js">
-    </script>
+            <!-- Bootstrap JS-->
+            <script src="vendor/bootstrap-4.1/popper.min.js"></script>
+            <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
+            <!-- Vendor JS       -->
+            <script src="vendor/slick/slick.min.js">
+            </script>
+            <script src="vendor/wow/wow.min.js"></script>
+            <script src="vendor/animsition/animsition.min.js"></script>
+            <script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+            </script>
+            <script src="vendor/counter-up/jquery.waypoints.min.js"></script>
+            <script src="vendor/counter-up/jquery.counterup.min.js">
+            </script>
+            <script src="vendor/circle-progress/circle-progress.min.js"></script>
+            <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+            <script src="vendor/chartjs/Chart.bundle.min.js"></script>
+            <script src="vendor/select2/select2.min.js">
+            </script>
 
-    <!-- Main JS-->
-    <script src="js/main.js"></script>
+            <!-- Main JS-->
+            <script src="js/main.js"></script>
 
 
-    <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id');
-    let m = JSON.parse('<%-JSON.stringify(monitorias)%>')
-    let sendAddStudent = () => $.ajax({
-     url: '/add_student',
-     type: 'post',
-     dataType: 'json',
-     contentType: 'application/json',
-     success: function (data) {
-     if (data == "refresh") {
-        location.reload()
-      }
-     },
-     data: JSON.stringify({id_m : id, matricula : $('#matricula').val(), name : $('#nome').val()})
-    });
+            <script>
+                const urlParams = new URLSearchParams(window.location.search);
+                const id = urlParams.get('id');
+                let m = JSON.parse('<%-JSON.stringify(monitorias)%>')
+                let sendAddStudent = () => $.ajax({
+                    url: '/add_student',
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function(data) {
+                        if (data == "refresh") {
+                            location.reload()
+                        }
+                    },
+                    data: JSON.stringify({
+                        id_m: id,
+                        matricula: $('#matricula').val(),
+                        name: $('#nome').val()
+                    })
+                });
 
-    let write_students_form = (n, ma) => {
-        $("#students").append(`<tr> \
+                let write_students_form = (n, ma) => {
+                    $("#students").append(`<tr> \
                          <td>${ma}</td> \
                          <td>${n}</td> \
-                         </tr>`) 
-    }
+                         </tr>`)
+                }
 
-    for (let i =0; i <= m.length - 1; i++) {
-        if (m[i]._id == id) {
-            for (let j=0; j <= m[i].alunos.length - 1; j++) {
-                write_students_form(m[i].alunos[j].nome, m[i].alunos[j].matricula)
-            }
-        }
-    }
-
-    let s_id = () => { for (let i = 0; i <= m.length - 1; i++) {
-                         if (m[i]._id == id) {return m[i]}
-                      }
-                      return null;
+                for (let i = 0; i <= m.length - 1; i++) {
+                    if (m[i]._id == id) {
+                        for (let j = 0; j <= m[i].alunos.length - 1; j++) {
+                            write_students_form(m[i].alunos[j].nome, m[i].alunos[j].matricula)
+                        }
                     }
+                }
 
-    </script>
+                let s_id = () => {
+                    for (let i = 0; i <= m.length - 1; i++) {
+                        if (m[i]._id == id) {
+                            return m[i]
+                        }
+                    }
+                    return null;
+                }
+            </script>
 </body>
 
 </html>

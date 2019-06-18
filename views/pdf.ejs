@@ -46,13 +46,13 @@
                 </a>
             </div>
             <div class="menu-sidebar__content js-scrollbar1">
-                    <nav class="navbar-sidebar">
-                        <ul class="list-unstyled navbar__list">
-                            <li class="has-sub">
-                                <a class="js-arrow" href="/">
-                                    <i class="fas fa-tachometer-alt"></i>Menu Principal</a>
-                    </nav>
-                </div>
+                <nav class="navbar-sidebar">
+                    <ul class="list-unstyled navbar__list">
+                        <li class="has-sub">
+                            <a class="js-arrow" href="/">
+                                <i class="fas fa-tachometer-alt"></i>Menu Principal</a>
+                </nav>
+            </div>
         </aside>
         <!-- END MENU SIDEBAR-->
 
@@ -94,10 +94,10 @@
                                                 <i class="zmdi zmdi-settings"></i>Setting</a>
                                         </div>
                                     </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
             </header>
             <aside class="menu-sidebar2 js-right-sidebar d-block d-lg-none">
                 <div class="logo">
@@ -166,7 +166,7 @@
                                             <li class="list-inline-item">Visualizar PDF de frequencia</li>
                                         </ul>
                                     </div>
-                                    <button class="au-btn au-btn-icon au-btn--green" id = "download_mpdf" name = "download_mpdf">
+                                    <button class="au-btn au-btn-icon au-btn--green" id="download_mpdf" name="download_mpdf">
                                         <i class="zmdi zmdi-plus"></i>Download</button>
                                 </div>
                             </div>
@@ -186,10 +186,10 @@
                                     <h3 class="title-3 m-b-30">
                                         <i class="zmdi zmdi-account-calendar"></i>LISTA DE FREQUENCIA</h3>
                                     <div class="filters m-b-45">
-                                            <canvas id="the-canvas"></canvas>
+                                        <canvas id="the-canvas"></canvas>
                                     </div>
 
-                            </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -247,117 +247,124 @@
 <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
 
 
-  <script> 
-
+<script>
     let saveByteArray = (reportName, byte) => {
-        var blob = new Blob([byte], {type: "application/pdf"});
+        var blob = new Blob([byte], {
+            type: "application/pdf"
+        });
         var link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
         link.download = reportName;
-        link.click(); 
+        link.click();
     };
 
-   let PDFDocumentFactory = PDFLib.PDFDocumentFactory;
-   let drawText = PDFLib.drawText;
-   let StandardFonts = PDFLib.StandardFonts;
-   let PDFDocumentWriter = PDFLib.PDFDocumentWriter;
+    let PDFDocumentFactory = PDFLib.PDFDocumentFactory;
+    let drawText = PDFLib.drawText;
+    let StandardFonts = PDFLib.StandardFonts;
+    let PDFDocumentWriter = PDFLib.PDFDocumentWriter;
 
-   let stream_s_pdf = (font, x) => {
-       let s = []
-       for (let i =0; i <= x.length - 1; i ++) {
-           s[i]= drawText(font.encodeText(x[i].matricula.toString()), {
+    let stream_s_pdf = (font, x) => {
+        let s = []
+        for (let i = 0; i <= x.length - 1; i++) {
+            s[i] = drawText(font.encodeText(x[i].matricula.toString()), {
                 x: 425,
-                y: 376-(i * 15),
+                y: 376 - (i * 15),
                 size: 10,
                 font: 'Helvetica',
                 colorRgb: [0, 0, 0],
             })
-       }
-  
-       return s
-   }
+        }
 
-   let g_pdf = (name, unit_academic, unit_curri, data, sup, st) => {
-   fetch('http://localhost:3000/frequencia.pdf')
-  .then(res => res.blob()) // Gets the response and returns it as a blob
-  .then(blob => {
-    new Response(blob).arrayBuffer().then(x => {
-        var uint8View = new Uint8Array(x);
-        const pdfDoc = PDFDocumentFactory.load(uint8View);
-        const [helveticaRef, helveticaFont] = pdfDoc.embedStandardFont(StandardFonts.Helvetica);
-        const page  = pdfDoc.getPages()[0];
-        page.addFontDictionary('Helvetica', helveticaRef);
-        const contentStream = pdfDoc.createContentStream(
-            drawText(helveticaFont.encodeText(name), {
-                x: 144,
-                y: 566,
-                size: 10,
-                font: 'Helvetica',
-                colorRgb: [0, 0, 0],
-            }), drawText(helveticaFont.encodeText(unit_academic), {
-                x: 200,
-                y: 577,
-                size: 10,
-                font: 'Helvetica',
-                colorRgb: [0, 0, 0],
-            }),
-            drawText(helveticaFont.encodeText(unit_curri), {
-                x: 195,
-                y: 533,
-                size: 10,
-                font: 'Helvetica',
-                colorRgb: [0, 0, 0],
-            }),
-            drawText(helveticaFont.encodeText(data), {
-                x: 250,
-                y: 490,
-                size: 10,
-                font: 'Helvetica',
-                colorRgb: [0, 0, 0],
-            }),
-            drawText(helveticaFont.encodeText(sup), {
-                x: 199,
-                y: 544,
-                size: 10,
-                font: 'Helvetica',
-                colorRgb: [0, 0, 0],
+        return s
+    }
+
+    let g_pdf = (name, unit_academic, unit_curri, data, sup, st) => {
+        fetch('http://localhost:3000/frequencia.pdf')
+            .then(res => res.blob()) // Gets the response and returns it as a blob
+            .then(blob => {
+                new Response(blob).arrayBuffer().then(x => {
+                    var uint8View = new Uint8Array(x);
+                    const pdfDoc = PDFDocumentFactory.load(uint8View);
+                    const [helveticaRef, helveticaFont] = pdfDoc.embedStandardFont(StandardFonts.Helvetica);
+                    const page = pdfDoc.getPages()[0];
+                    page.addFontDictionary('Helvetica', helveticaRef);
+                    const contentStream = pdfDoc.createContentStream(
+                        drawText(helveticaFont.encodeText(name), {
+                            x: 144,
+                            y: 566,
+                            size: 10,
+                            font: 'Helvetica',
+                            colorRgb: [0, 0, 0],
+                        }), drawText(helveticaFont.encodeText(unit_academic), {
+                            x: 200,
+                            y: 577,
+                            size: 10,
+                            font: 'Helvetica',
+                            colorRgb: [0, 0, 0],
+                        }),
+                        drawText(helveticaFont.encodeText(unit_curri), {
+                            x: 195,
+                            y: 533,
+                            size: 10,
+                            font: 'Helvetica',
+                            colorRgb: [0, 0, 0],
+                        }),
+                        drawText(helveticaFont.encodeText(data), {
+                            x: 250,
+                            y: 490,
+                            size: 10,
+                            font: 'Helvetica',
+                            colorRgb: [0, 0, 0],
+                        }),
+                        drawText(helveticaFont.encodeText(sup), {
+                            x: 199,
+                            y: 544,
+                            size: 10,
+                            font: 'Helvetica',
+                            colorRgb: [0, 0, 0],
+                        })
+
+                    );
+
+                    const dynamic_pdf_stream = (pdfDoc.createContentStream).apply(this, stream_s_pdf(helveticaFont, st))
+
+                    page.addContentStreams(pdfDoc.register(contentStream));
+                    page.addContentStreams(pdfDoc.register(dynamic_pdf_stream));
+
+                    let pdf = PDFDocumentWriter.saveToBytes(pdfDoc)
+                    document.getElementById('download_mpdf').onclick = () => saveByteArray("lista de frequencia " + data, pdf)
+                    let loadingTask = pdfjsLib.getDocument(pdf);
+                    loadingTask.promise.then(function(pdf) {
+                        pdf.getPage(1).then(function(page) {
+                            var scale = 1.5;
+                            var viewport = page.getViewport({
+                                scale: scale
+                            });
+                            var canvas = document.getElementById('the-canvas');
+                            var context = canvas.getContext('2d');
+                            canvas.height = viewport.height;
+                            canvas.width = viewport.width;
+                            var renderTask = page.render({
+                                canvasContext: context,
+                                viewport: viewport
+                            });
+                            renderTask.promise.then(function() {});
+                        });
+                    });
+                })
             })
-
-            );
-
-        const dynamic_pdf_stream = (pdfDoc.createContentStream).apply(this, stream_s_pdf(helveticaFont, st))
-            
-        page.addContentStreams(pdfDoc.register(contentStream));
-        page.addContentStreams(pdfDoc.register(dynamic_pdf_stream));
-
-        let pdf = PDFDocumentWriter.saveToBytes(pdfDoc)
-        document.getElementById('download_mpdf').onclick = () => saveByteArray("lista de frequencia " + data, pdf)
-        let loadingTask = pdfjsLib.getDocument(pdf);
-        loadingTask.promise.then(function(pdf) {
-            pdf.getPage(1).then(function(page) {
-                var scale = 1.5;
-                var viewport = page.getViewport({scale: scale});
-                var canvas = document.getElementById('the-canvas');
-                var context = canvas.getContext('2d');
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
-                var renderTask = page.render({canvasContext: context, viewport: viewport});
-                renderTask.promise.then(function () {
-                });
-            });
-        });
-    })})}
+    }
     let m = JSON.parse('<%-JSON.stringify(monitorias)%>')
     let user = JSON.parse('<%-JSON.stringify(user.info)%>')
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
     let s = []
     let last_m = null
-    
-    for (let i =0; i <= m.length - 1 && last_m == null; i++) {
+
+    for (let i = 0; i <= m.length - 1 && last_m == null; i++) {
         if (m[i]._id == id) {
             last_m = m[i]
-            for (let j=0; j <= m[i].alunos.length - 1; j++) {
+            for (let j = 0; j <= m[i].alunos.length - 1; j++) {
                 s.push(m[i].alunos[j])
             }
         }
@@ -365,7 +372,6 @@
 
     console.log(user)
     g_pdf(user.nome, user.unidade_academica, user.unidade_curricular, last_m.dia, user.supervisor, s)
-
-</script>          
+</script>
 
 </html>
