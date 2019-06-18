@@ -17,3 +17,10 @@ Client-side : Ajax, PDFlib and etc...
 Templates : CoolAdmin and SB Admin
 
 ```
+
+Trabalho feito para a disciplina de Engenharia de WEB - UFVJM.
+
+Alunos :
+
+Tiago Campos Ferreira (camposferreiratiago@gmail.com)
+Camila Alves (camila.alvesap@yahoo.com.br)
