@@ -279,7 +279,7 @@
     }
 
     let g_pdf = (name, unit_academic, unit_curri, data, sup, st) => {
-        fetch('http://localhost:3000/frequencia.pdf')
+        fetch('/frequencia.pdf')
             .then(res => res.blob()) // Gets the response and returns it as a blob
             .then(blob => {
                 new Response(blob).arrayBuffer().then(x => {
