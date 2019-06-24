@@ -550,6 +550,4 @@ app.post("/logout_admin", (req, res) => {
 })
 
 
-app.listen(process.env.PORT || 8080, function() {
-    console.log('Example app listening on port 3000!');
-});
+app.listen(process.env.PORT || 8080, t => {});

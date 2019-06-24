@@ -263,16 +263,32 @@
     let StandardFonts = PDFLib.StandardFonts;
     let PDFDocumentWriter = PDFLib.PDFDocumentWriter;
 
+    let pair = (x, y) => {
+        let f = {fst : x, snd : y}
+        return f;
+    }
+    let fst = x => x.fst
+    let snd = y => y.snd
+
     let stream_s_pdf = (font, x) => {
-        let s = []
+        let s = pair([], [])
         for (let i = 0; i <= x.length - 1; i++) {
-            s[i] = drawText(font.encodeText(x[i].matricula.toString()), {
+            fst(s)[i] = drawText(font.encodeText(x[i].matricula.toString()), {
                 x: 425,
                 y: 376 - (i * 15),
                 size: 10,
                 font: 'Helvetica',
                 colorRgb: [0, 0, 0],
             })
+
+            snd(s)[i] = drawText(font.encodeText(x[i].nome), {
+                x: 86,
+                y: 376 - (i * 15),
+                size: 10,
+                font: 'Helvetica',
+                colorRgb: [0, 0, 0],
+            })
+
         }
 
         return s
@@ -326,10 +342,9 @@
 
                     );
 
-                    const dynamic_pdf_stream = (pdfDoc.createContentStream).apply(this, stream_s_pdf(helveticaFont, st))
-
                     page.addContentStreams(pdfDoc.register(contentStream));
-                    page.addContentStreams(pdfDoc.register(dynamic_pdf_stream));
+                    page.addContentStreams(pdfDoc.register((pdfDoc.createContentStream).apply(this, fst(stream_s_pdf(helveticaFont, st)))));
+                    page.addContentStreams(pdfDoc.register((pdfDoc.createContentStream).apply(this, snd(stream_s_pdf(helveticaFont, st)))));
 
                     let pdf = PDFDocumentWriter.saveToBytes(pdfDoc)
                     document.getElementById('download_mpdf').onclick = () => saveByteArray("lista de frequencia " + data, pdf)
