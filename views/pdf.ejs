@@ -258,7 +258,7 @@
         link.click();
     };
 
-    let PDFDocumentFactory = PDFLib.PDFDocumentFactory;
+    let PDFDocumentFactory = PDFLib.PDFDocument;
     let drawText = PDFLib.drawText;
     let StandardFonts = PDFLib.StandardFonts;
     let PDFDocumentWriter = PDFLib.PDFDocumentWriter;
@@ -270,22 +270,22 @@
     let fst = x => x.fst
     let snd = y => y.snd
 
-    let stream_s_pdf = (font, x) => {
+    let stream_s_pdf = (page, font, x) => {
         let s = pair([], [])
         for (let i = 0; i <= x.length - 1; i++) {
-            fst(s)[i] = drawText(font.encodeText(x[i].matricula.toString()), {
+            page.drawText(x[i].matricula.toString(), {
                 x: 425,
                 y: 376 - (i * 15),
                 size: 10,
-                font: 'Helvetica',
+                font: font,
                 colorRgb: [0, 0, 0],
             })
 
-            snd(s)[i] = drawText(font.encodeText(x[i].nome), {
+            page.drawText(x[i].nome, {
                 x: 86,
                 y: 376 - (i * 15),
                 size: 10,
-                font: 'Helvetica',
+                font: font,
                 colorRgb: [0, 0, 0],
             })
 
@@ -298,55 +298,56 @@
         fetch('/frequencia.pdf')
             .then(res => res.blob()) // Gets the response and returns it as a blob
             .then(blob => {
-                new Response(blob).arrayBuffer().then(x => {
+                new Response(blob).arrayBuffer().then(async x => {
                     var uint8View = new Uint8Array(x);
-                    const pdfDoc = PDFDocumentFactory.load(uint8View);
-                    const [helveticaRef, helveticaFont] = pdfDoc.embedStandardFont(StandardFonts.Helvetica);
+                    const pdfDoc = await PDFDocumentFactory.load(uint8View);
+                    console.log(await pdfDoc.embedStandardFont(StandardFonts.Helvetica))
+                    const helveticaFont  = await pdfDoc.embedStandardFont(StandardFonts.Helvetica);
                     const page = pdfDoc.getPages()[0];
-                    page.addFontDictionary('Helvetica', helveticaRef);
-                    const contentStream = pdfDoc.createContentStream(
-                        drawText(helveticaFont.encodeText(name), {
+           //         await page.addFontDictionary('Helvetica', helveticaFont);
+                    let basic_wr = (x) => 
+                    {
+                        x.drawText(name, {
                             x: 144,
                             y: 566,
                             size: 10,
-                            font: 'Helvetica',
+                            font: helveticaFont,
                             colorRgb: [0, 0, 0],
-                        }), drawText(helveticaFont.encodeText(unit_academic), {
+                        });
+                        x.drawText(unit_academic, {
                             x: 200,
                             y: 577,
                             size: 10,
-                            font: 'Helvetica',
+                            font: helveticaFont,
                             colorRgb: [0, 0, 0],
-                        }),
-                        drawText(helveticaFont.encodeText(unit_curri), {
+                        });
+                        x.drawText(unit_curri, {
                             x: 195,
                             y: 533,
                             size: 10,
-                            font: 'Helvetica',
+                            font: helveticaFont,
                             colorRgb: [0, 0, 0],
-                        }),
-                        drawText(helveticaFont.encodeText(data), {
+                        });
+                        x.drawText(data, {
                             x: 250,
                             y: 490,
                             size: 10,
-                            font: 'Helvetica',
+                            font: helveticaFont,
                             colorRgb: [0, 0, 0],
-                        }),
-                        drawText(helveticaFont.encodeText(sup), {
+                        });
+                        x.drawText(sup, {
                             x: 199,
                             y: 544,
                             size: 10,
-                            font: 'Helvetica',
+                            font: helveticaFont,
                             colorRgb: [0, 0, 0],
-                        })
+                        });
+                    }
+                   
+                   basic_wr(page)
+                   stream_s_pdf(page, helveticaFont, st)
 
-                    );
-
-                    page.addContentStreams(pdfDoc.register(contentStream));
-                    page.addContentStreams(pdfDoc.register((pdfDoc.createContentStream).apply(this, fst(stream_s_pdf(helveticaFont, st)))));
-                    page.addContentStreams(pdfDoc.register((pdfDoc.createContentStream).apply(this, snd(stream_s_pdf(helveticaFont, st)))));
-
-                    let pdf = PDFDocumentWriter.saveToBytes(pdfDoc)
+                    let pdf = await pdfDoc.save();
                     document.getElementById('download_mpdf').onclick = () => saveByteArray("lista de frequencia " + data, pdf)
                     let loadingTask = pdfjsLib.getDocument(pdf);
                     loadingTask.promise.then(function(pdf) {
